@@ -1,7 +1,7 @@
 # aws-lambda-edge-image-resizer
 
 ## Explanation
-Nodejs 14 기반 Lambda@Edge 이미지 리사이징 함수로 CloudFront로 이미지 요청시 요청한 이미지를 리사이징하여 CloudFront에 캐싱 및 클라이언트에게 전달한다.
+Nodejs 14 기반 Lambda@Edge 이미지 리사이징 함수로 CloudFront로 이미지 요청시 요청한 이미지를 리사이징하여 CloudFront에 캐싱 및 클라이언트에게 전달한다. 이미지 리사이징을 위해 Sharp를 사용하였다.
 w(넓이), h(높이), q(퀄리티)를 인자로 받으며 w, h는 필수 값이고 q는 10부터 95까지 값을 받으며 생략시 디폴트 값은 95이다.
 GitHub Actions을 이용하여 .zip 파일로 Lambda에 업로드한다.
 
