@@ -94,3 +94,7 @@ Bucket 정책에 CloudFront와 Lambda에 대한 권한을 추가한다.
 
 CloudFront 동작이 캐시 및 원본 요청에서 Legacy cache settings 선택 후 쿼리 문자열을 지정된 모두 혹은 쿼리 문자열 포함을 선택한다.
 쿼리 문자열 포함을 선택하면 index.js에서 사용하는 쿼리 키들(w, h, q)을 추가한다.
+
+## Reference
+https://heropy.blog/2019/07/21/resizing-images-cloudfrount-lambda
+https://v3.leedo.me/image-resize-by-cloudfront-lambda-edge
