@@ -1,0 +1,40 @@
+name: CD
+
+on:
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  LAMBDA: <Lambda Name>
+
+jobs:
+  upload_zip_to_lambda:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Make zip
+        run: |
+          cd src
+          sed -i "s/BUCKET_NAME/${{ secrets.BUCKET_NAME }}/gi" index.js
+          docker build --tag sharp_on_lambda:nodejs14 .
+          docker run --name sharp_on_lambda_container sharp_on_lambda:nodejs14
+          docker cp sharp_on_lambda_container:/lambda.zip .
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: <AWS IAM Role ARN>
+          aws-region: ap-northeast-2
+
+      - name: Upload AWS
+        run: |
+          cd src
+          aws lambda update-function-code \
+          --region us-east-1 \
+          --function-name ${{ env.LAMBDA }} \
+          --zip-file fileb://lambda.zip
